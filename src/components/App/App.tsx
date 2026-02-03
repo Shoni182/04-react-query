@@ -47,6 +47,7 @@ export default function App() {
   //: Search
   const handleSearch = (query: string) => {
     setQuery(query);
+    setCurrentPage(1);
   };
 
   useEffect(() => {
