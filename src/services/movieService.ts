@@ -1,25 +1,27 @@
 // import axio
 import axios from "axios";
-import type { Movie } from "../types/movie";
+import { type Movie } from "../types/movie";
 
 interface MoviesHttpResponse {
   results: Movie[];
+  total_pages: number;
 }
-// API key
+
 const myKey = import.meta.env.VITE_API_KEY;
 
 // fetch function
-export const fetchMovies = async (query: string): Promise<Movie[]> => {
+export const fetchMovies = async (query: string, page: number) => {
   const response = await axios.get<MoviesHttpResponse>(
     `https://api.themoviedb.org/3/search/movie`,
     {
       params: {
         query,
+        page,
       },
       headers: {
         Authorization: `Bearer ${myKey}`,
       },
     },
   );
-  return response.data.results;
+  return response.data;
 };
